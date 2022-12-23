@@ -1,7 +1,9 @@
 package com.build.qa.build.selenium.pageobjects;
 
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Wait;
 
 import com.build.qa.build.selenium.framework.BaseFramework;
@@ -12,5 +14,9 @@ public abstract class BasePage extends BaseFramework {
 		this.driver = driver;
 		this.wait = wait;
 		PageFactory.initElements(driver, this);
+	}
+
+	public String getText(WebElement e) {
+		return wait.until(ExpectedConditions.visibilityOf(e)).getText();
 	}
 }

@@ -1,11 +1,16 @@
 package com.build.qa.build.selenium.tests;
 
+import com.build.qa.build.selenium.pageobjects.productspage.ProductPage;
+import com.build.qa.build.selenium.utilities.BrowserUtils;
 import org.junit.Test;
 
 import com.build.qa.build.selenium.framework.BaseFramework;
 import com.build.qa.build.selenium.pageobjects.homepage.HomePage;
 
+import static org.assertj.core.api.Assertions.*;
+
 public class FergTest extends BaseFramework {
+	BrowserUtils utils = new BrowserUtils();
 
 	/**
 	 * Extremely basic test that outlines some basic
@@ -16,7 +21,7 @@ public class FergTest extends BaseFramework {
 		driver.get(getConfiguration("HOMEPAGE"));
 		HomePage homePage = new HomePage(driver, wait);
 
-		softly.assertThat(homePage.onHomePage())
+		assertThat(homePage.onHomePage())
 			.as("The website should load up with the Build.com desktop theme.")
 			.isTrue();
 	}
@@ -27,8 +32,18 @@ public class FergTest extends BaseFramework {
 	 * @difficulty Easy
 	 */
 	@Test
-	public void searchForProductLandsOnCorrectProduct() {
+	public void searchForProductLandsOnCorrectProduct() throws InterruptedException {
 		// Task #1: Implement this test
+		driver.get(getConfiguration("HOMEPAGE"));
+		HomePage homePage = new HomePage(driver, wait);
+		ProductPage productPage = new ProductPage(driver, wait);
+		String searchKeyword = "Moen m6702bn";
+		homePage.searchProduct(searchKeyword);
+
+		String productBrand = productPage.getText(productPage.productBrand);
+		String productId = productPage.getText(productPage.productId);
+		assertThat(productBrand).isEqualTo(searchKeyword.split(" ")[0]);
+		assertThat(productId).containsIgnoringCase(searchKeyword.split(" ")[1]);
 	}
 
 	/**
@@ -41,6 +56,7 @@ public class FergTest extends BaseFramework {
 	@Test
 	public void addProductToCartFromCategoryDrop() {
 		// Task #2: Implement this test
+		driver.get("https://www.ferguson.com/category/bathroom-plumbing/bathroom-faucets/bathroom-sink-faucets/_/N-zbq4i3");
 	}
 
 	/**

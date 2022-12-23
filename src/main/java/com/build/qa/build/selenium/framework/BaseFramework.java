@@ -31,8 +31,8 @@ public abstract class BaseFramework {
 	private static final String DRIVER_CHROME = "chrome";
 	private static Properties configuration;
 
-	@Rule
-	public final JUnitSoftAssertions softly = new JUnitSoftAssertions();
+//	@Rule
+//	public final JUnitSoftAssertions softly = new JUnitSoftAssertions();
 
 	@BeforeClass
 	public static void beforeClass() throws IOException {
